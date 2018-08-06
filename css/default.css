@@ -1,0 +1,115 @@
+
+	
+			.alert{
+				position:fixed;
+				top:0px;
+				left:50%;
+				width:50%;
+				margin-left:-25%;
+			}
+			#cabecario_padrao{
+				display:none;
+			}
+            tr.selected {
+              background-color:#FFFFCC;
+            }
+			.modal-dialog{
+				overflow-y: initial !important
+			}
+			.modal-body{
+				height: 450px;
+				overflow-y: auto;
+			}
+			.only_print{
+				display:none;
+			}
+			th.headerSortUp { 
+				background-image: url(img/small_asc.gif); 
+				background-color: #ff9933; 
+			} 
+			th.headerSortDown { 
+				background-image: url(img/small_desc.gif); 
+				background-color: #3399FF; 
+			} th.header { 
+				cursor: pointer; 
+				font-weight: bold;  
+			}
+
+			tbody {
+				height: 100px;       /* Just for the demo          */
+				overflow-y: auto;    /* Trigger vertical scroll    */
+				overflow-x: hidden;  /* Hide the horizontal scroll */
+			}
+			.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+			padding:0px;
+			}
+			#titulo{
+				text-align:center;
+				font-size:36pt;
+			}
+
+			
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.navbar {
+      border-color:transparent;
+      background-image:none;
+      box-shadow:none;  
+	  clear:both;
+}
+.navbar li>a {
+     color:#000; 
+ }
+ 
+ 
+textarea {
+  width: 100%;
+  height: 100%;
+  resize:none;
+}
+
+.table-with-form td input{border:0px solid #000; margin:0; background:transparent; width:100%}
+table.table-with-form tr td{border-right:1px solid #000; border-bottom:1px solid #000;}
+table.table-with-form{background: #fff none repeat scroll 0 0;
+    border-left: 1px solid #000;
+    border-top: 1px solid #000;}
+	
+.table_list tr td{
+	cursor:pointer;
+}
+
+
+.select2-container{
+	  width:90%;
+	  min-width:90%;!important
+}
