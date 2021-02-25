@@ -1,27 +1,4 @@
 <?php
-/*
-Qr::inst("Serviços/Orçamentos","orcamentos")
-	->fields(
-		field::inst("orcamentos.id","#")->type("hidden"),
-		field::inst("orcamentos.valor","Valor"),
-		field::inst("DATE_FORMAT( orcamentos.data, '%d\/%m\/%Y' ) as data","Data"),
-		field::inst("clientes.nome as cliente","Cliente"),
-		field::inst("veiculos.placa as veiculo","Equipamento"),
-		field::inst("funcionarios.nome as funcionario","Funcionario"),
-		field::inst("formpagtos.descricao as formpagto","Forma de pagamento"),
-		field::inst("condpagtos.descricao as condpagto","Condição de Pagamento"),
-		field::inst("garantias.descricao as garantia","Garantia")
-	)
-	->leftJoin("clientes","clientes.id","=","orcamentos.cliente")
-	->leftJoin("veiculos","veiculos.id","=","orcamentos.veiculo")
-	->leftJoin("funcionarios","funcionarios.id","=","orcamentos.funcionario")
-	->leftJoin("formpagtos","formpagtos.id","=","orcamentos.formpagto")
-	->leftJoin("condpagtos","condpagtos.id","=","orcamentos.condpagto")
-	->leftJoin("garantias","garantias.id","=","orcamentos.garantia")
-	->layout();
-	
-	
-	/*
 if(!isset($db)){
 	$db = Database::conexao();
 }
@@ -164,9 +141,7 @@ if(!isset($dados["acao"])) $dados["acao"] = "view";
 				break;
 				default:
 					$sth = $db->prepare("select 
-						os.id,
-						os.valor,
-						DATE_FORMAT( os.data, '%d\/%m\/%Y' ) as data,
+						os.id,os.valor,DATE_FORMAT( os.data, '%d\/%m\/%Y' ) as data,
 						clientes.nome as cliente,
 						veiculos.placa as veiculo,
 						funcionarios.nome as funcionario,
@@ -174,7 +149,12 @@ if(!isset($dados["acao"])) $dados["acao"] = "view";
 						condpagtos.descricao as condpagto,
 						garantias.descricao as garantia
 						from os 
-							;
+							LEFT join clientes on clientes.id = os.cliente
+							LEFT JOIN veiculos on veiculos.id = os.veiculo
+							LEFT join funcionarios on funcionarios.id = os.funcionario
+							LEFT join formpagtos on formpagtos.id = os.formpagto
+							LEFT join condpagtos on condpagtos.id = os.formpagto
+							LEFT join garantias on garantias.id = os.garantia WHERE os.status = 1");
 					$sth->execute();
 					$result = $sth->fetchAll(PDO::FETCH_ASSOC);
 					Query::data($result);
@@ -183,4 +163,9 @@ if(!isset($dados["acao"])) $dados["acao"] = "view";
 				break;
 			}
 		
-*/
+?>
+
+			}
+		
+?>
+

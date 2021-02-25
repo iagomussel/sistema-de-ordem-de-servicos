@@ -1,9 +1,11 @@
 <?php
-	qr::inst("Cadastros/Tabelas/Clientes/Cidade")
-	->Fields(
-		Field::inst("cidade.id","#")->type("hidden"),
-		Field::inst("cidade.Nome"),
-		Field::inst("estado.uf as UF")->type("select")
-	)->leftJoin("estado","estado.id","=","cidade.idEstado")
-	->layout();;
-
+if(!isset($db)){
+	$db = Database::conexao();
+}
+	$sth = $db->prepare("select Id,IdEstado,Nome from cidade");
+	$sth->execute();
+	$result = $sth->fetchAll(PDO::FETCH_ASSOC);
+	Query::data($result);
+	Query::json();
+	die();
+?>
