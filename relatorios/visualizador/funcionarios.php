@@ -16,16 +16,44 @@ $funcionario = $qr[0];
 //carregando serviços
 $stmt = Database::conexao()->prepare("
 select *,DATE_FORMAT( os.data, '%d\/%m\/%Y' ) as data,clientes.nome as cliente from os left join clientes on clientes.id=os.cliente where os.data>=:data_inicial AND os.data<=:data_final AND os.status=0 AND os.funcionario=:funcionario_id ORDER BY data asc");
-$ar_data_ini = explode("/",$dados["data_inicial"]);
-$ar_data_fin = explode("/",$dados["data_final"]);
-$data_inicial = mktime(0,0,0,$ar_data_ini[1],$ar_data_ini[0],$ar_data_ini[2]);
-$data_final = mktime(0,0,0,$ar_data_fin[1],$ar_data_fin[0],$ar_data_fin[2]);
+if($con_perild){
+	$ar_data_ini = explode("/",$dados["data_inicial"]);
+	$ar_data_fin = explode("/",$dados["data_final"]);
+	$data_inicial = mktime(0,0,0,$ar_data_ini[1],$ar_data_ini[0],$ar_data_ini[2]);
+	$data_final = mktime(0,0,0,$ar_data_fin[1],$ar_data_fin[0],$ar_data_fin[2]);
+} else {
+	$data_inicial =mktime(0,0,0,0,0,0);
+	$data_final = mktime();
+}
 $stmt->bindValue(":data_inicial",date("Y-m-d",$data_inicial));
 $stmt->bindValue(":data_final",date("Y-m-d",$data_final));
 $stmt->bindValue(":funcionario_id",$dados["id"]);
 $stmt->execute();
 $os_s = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+<style>
+body{
+	font-size:12px;	
+}
+.table{    margin-bottom:7px}
+caption {
+    padding-top: 4px;
+    padding-bottom: 1px;
+}		
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 2px;
+}
+h1,h2,h3,h4,h5{
+	margin-bottom:3px;
+	margin-top:5px
+}
+hr {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border: 0;
+    border-top: 1px dotted #eee;
+}
+</style>
 <div class="row">
 <div class="col-xs-8">
 <?php require("cabecario.php"); ?>

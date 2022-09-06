@@ -24,16 +24,45 @@ $veiculos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 //carregando serviços
 $stmt = Database::conexao()->prepare("select *,funcionarios.nome as funcionario,formpagtos.descricao as formpagto from os left join funcionarios on funcionarios.id=os.funcionario left join formpagtos on formpagtos.id = os.formpagto where os.data>=:data_inicial AND os.data<=:data_final AND os.status=0 AND os.cliente=:cliente_id ORDER BY data asc");
-$ar_data_ini = explode("/",$dados["data_inicial"]);
-$ar_data_fin = explode("/",$dados["data_final"]);
-$data_inicial = mktime(0,0,0,$ar_data_ini[1],$ar_data_ini[0],$ar_data_ini[2]);
-$data_final = mktime(0,0,0,$ar_data_fin[1],$ar_data_fin[0],$ar_data_fin[2]);
+$con_perild = (strlen($dados["data_inicial"])>0&&strlen($dados["data_final"])>0);
+if($con_perild){
+	$ar_data_ini = explode("/",$dados["data_inicial"]);
+	$ar_data_fin = explode("/",$dados["data_final"]);
+	$data_inicial = mktime(0,0,0,$ar_data_ini[1],$ar_data_ini[0],$ar_data_ini[2]);
+	$data_final = mktime(0,0,0,$ar_data_fin[1],$ar_data_fin[0],$ar_data_fin[2]);
+} else {
+	$data_inicial =mktime(0,0,0,0,0,0);
+	$data_final = mktime();
+}
 $stmt->bindValue(":data_inicial",date("Y-m-d",$data_inicial));
-$stmt->bindValue(":data_final",date("Y-m-d",$data_final));
+	$stmt->bindValue(":data_final",date("Y-m-d",$data_final));
 $stmt->bindValue(":cliente_id",$dados["id"]);
 $stmt->execute();
 $os_s = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+<style>
+body{
+	font-size:12px;	
+}
+.table{    margin-bottom:7px}
+caption {
+    padding-top: 4px;
+    padding-bottom: 1px;
+}		
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 2px;
+}
+h1,h2,h3,h4,h5{
+	margin-bottom:3px;
+	margin-top:5px
+}
+hr {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border: 0;
+    border-top: 1px dotted #eee;
+}
+</style>
 <div class="row">
 <div class="col-xs-8">
 <?php require("cabecario.php"); ?>
@@ -84,15 +113,15 @@ $os_s = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		?>
 		
 		<table border=0 cellpadding=0 cellspacing=0 width=875 class="table table-striped table-hover">
- <caption>Dados do cliente</caption>
+ <caption>Dados do cliente </caption>
  <tbody>
  <tr >
   <td height=20 class=xl6513550 style='height:15.0pt'>Nome</td>
   <td class=xl1513550><?php echo $cliente["nome"]?></td>
-  <td class=xl6513550>E-mail</td>
-  <td class=xl1513550><?php echo $cliente["email"]?></td>
   <td class=xl6513550>Telefone</td>
   <td class=xl1513550><?php echo $cliente["telefone"]?></td>
+  <td class=xl6513550>E-mail</td>
+  <td class=xl1513550><?php echo $cliente["email"]?></td>
  </tr>
  <tr height=20 style='height:15.0pt'>
   <td height=20 class=xl6513550 style='height:15.0pt'>CPF / CNPJ</td>
@@ -104,9 +133,10 @@ $os_s = $stmt->fetchAll(PDO::FETCH_ASSOC);
  </tr>
  <tr height=20 style='height:15.0pt'>
   <td height=20 class=xl6513550 style='height:15.0pt'>Endereço</td>
-  <td colspan=3 class=xl6313550><?php echo $cliente["endereco"]?></td>
-  <td class=xl6513550>Cidade - UF</td>
-  <td class=xl1513550><?php echo $cliente["cidade"]." - ".$cliente["uf"]?></td>
+  <td colspan=3 class=xl6313550><?php echo $cliente["endereco"]?>, <?php echo $cliente["num"]?> | <?php echo $cliente["bairro"]." - ".$cliente["cidade"]." - ".$cliente["uf"]?></td>
+  <td height=20 class=xl6513550 style='height:15.0pt'>CEP</td>
+  <td colspan=3 class=xl6313550><?php echo $cliente["cep"]?></td>
+  
  </tr>
 </tbody>
 </table>
@@ -179,5 +209,5 @@ echo "</tr>";
 		</tbody>
 		
 	</table>
-	
+	<h5> Situação : <?php echo $cliente["status"]?></h5>
 	<?php

@@ -3,7 +3,9 @@ function validar_cpf($cpf)
 {
 	$cpf = preg_replace('/[^0-9]/', '', (string) $cpf);
 	// Valida tamanho
-	if (strlen($cpf) == 11)
+	
+	
+	if (strlen($cpf) == 11) ///se cpf
 	{
 	// Calcula e confere primeiro dígito verificador
 	for ($i = 0, $j = 10, $soma = 0; $i < 9; $i++, $j--)
@@ -16,7 +18,9 @@ function validar_cpf($cpf)
 		$soma += $cpf{$i} * $j;
 	$resto = $soma % 11;
 	return $cpf{10} == ($resto < 2 ? 0 : 11 - $resto);
-	} else if(strlen($cpf) == 14 ){
+	
+	
+	} else if(strlen($cpf) == 14 ){ /// se cnpj
 		// Valida primeiro dígito verificador
 		for ($i = 0, $j = 5, $soma = 0; $i < 12; $i++)
 		{

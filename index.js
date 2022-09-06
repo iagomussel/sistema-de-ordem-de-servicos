@@ -16,8 +16,8 @@ mf = {
 	estados:[]
 }
 mf.forms = {
-	os_s:{data:"",cliente:0,veiculo:0,servicos:[{}]},
-	orcamentos:{servicos:[{}]},
+	os_s:{data:"",cliente:0,veiculo:0,servicos:[{}],observacao:""},
+	orcamentos:{data:"",cliente:0,veiculo:0,servicos:[{}],observacao:""},
 	clientes:{},
 	veiculos:{},
 	funcionarios:{},
@@ -409,6 +409,7 @@ grava_os_ = function(){
 	if(!os.garantia) {message("Garantia não pode ficar vazio","Preencha");return false;}
 	if(!os.formpagto) {message("Forma de pagamento não pode ficar vazio","Preencha");return false;}
 	if(!os.condpagto) {message("Condição de pagamento não pode ficar vazio","Preencha");return false;}
+	
 	if(os.id==undefined) acao="add"; else acao="edit";
 	save({
 		local:"os_s",
@@ -484,7 +485,8 @@ grava_orcamento = function(){
 grava_cliente = function(){
 	var d = mf.forms.clientes;
 	if(d.id==undefined)acao = "add"; else acao="edit";
-
+	if(!d.estado) {message("O campo estado não pode ficar vazio","Preencha");return false;}
+	if(!d.cidade) {message("O campo cidade não pode ficar vazio","Preencha");return false;}
 	save({
 		local:"clientes",
 		dados:d,
@@ -497,14 +499,19 @@ grava_cliente = function(){
 			} else {
 				if(a.request.acao=='add'){
 					var dat = a.data;
-					dat.cidade = mf.cidade[mf.cidade.indexOfOb("Id",""+dat.cidade)].Nome
-					dat.estado = mf.estados[mf.estados.indexOfOb("Id",""+dat.estado)].Uf
+					dat.cidade = mf.cidade[mf.cidade.indexOfOb("Id",""+dat.cidade)]
+					if(dat.cidade!=undefined)dat.cidade = dat.cidade.Nome; else dat.cidade="";
+					console.log(mf.cidade.indexOfOb("Id",""+dat.cidade))
+					dat.estado = mf.estados[mf.estados.indexOfOb("Id",""+dat.estado)]
+					if(dat.estado!=undefined)dat.estado = dat.estado.Uf; else dat.estado="";
 					mf.clientes.push(dat);
 					mf.forms.clientes = {nome:"",cidade:4204,estado:19,telefone:"",cnpj:"",num:0,bairro:"",ie:"",status:"",im:"",email:"",endereco:"",cep:""};
 				} else if(a.request.acao=='edit'){
 					var dat = a.data;
-					dat.cidade = mf.cidade[mf.cidade.indexOfOb("Id",""+dat.cidade)].Nome
-					dat.estado = mf.estados[mf.estados.indexOfOb("Id",""+dat.estado)].Uf
+					dat.cidade = mf.cidade[mf.cidade.indexOfOb("Id",""+dat.cidade)]
+					if(dat.cidade!=undefined)dat.cidade = dat.cidade.Nome; else dat.cidade="";
+					dat.estado = mf.estados[mf.estados.indexOfOb("Id",""+dat.estado)]
+					if(dat.estado!=undefined)dat.estado = dat.estado.Uf; else dat.estado="";
 					vue.$set('mf.clientes['+mf.clientes.indexOfOb("id",""+dat.id)+']',dat)
 				} 
 				$("#form_clientes_modal").modal("hide");

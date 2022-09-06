@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require("licence.php");
 ?>
     <!DOCTYPE html>
@@ -103,7 +103,6 @@ require("licence.php");
 		
         <div id="container" class="container fade">
             <ul class="nav navbar-static-top nav-tabs navbar-inverse noprint">
-				<li><a data-toggle="tab" href="#dashboard"> _<span class="icon-home"></span></a></li>
 				<li class="dropdown"> 
 					<a class=" dropdown-toggle" type="button" data-toggle="dropdown">Cadastros <span class="caret"></span></a>
 					<ul class="dropdown-menu">
@@ -666,12 +665,12 @@ require("licence.php");
 							<fieldset>
 							<legend data-toggle="collapse" data-target="#dados_ad">Dados Adcionais</legend>
 					<div id="dados_ad" class="collapse in">
-					<div class="form-group">
+						<div class="form-group">
                                     
                                     <div class="col-md-offset-2 col-md-8">
-                                        <textarea id="diagnostico" name="diagnostico" placeholder="OBS" class="form-control input-md" required="" ></textarea>
-                                    </div>
-                                </div>
+                                       <textarea id="observacao" v-model="mf.forms.os_s.observacao" name="observacao"  class="form-control input-md" required="" ></textarea>  
+								   </div>
+                        </div>
 					</div>
 							</fieldset>
 							</form>
@@ -688,7 +687,7 @@ require("licence.php");
         <div class="modal-content">
             <div class="modal-header">
                 <div type="button" class="close" data-dismiss="modal">&times;</div>
-                <h4 class="modal-title">Emitir Ordem de Serviço</h4>
+                <h4 class="modal-title">Orçamentos</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal">
@@ -835,12 +834,12 @@ require("licence.php");
 								</fieldset>
                             
 							<fieldset>
-							<legend data-toggle="collapse" data-target="#dadorcamentoad">Dados Adcionais</legend>
+							<legend data-toggle="collapse" data-target="#dadorcamentoad">Dados Adicionais</legend>
 					<div id="dadorcamentoad" class="collapse in">
 					<div class="form-group">
                                     
                                     <div class="col-md-offset-2 col-md-8">
-                                        <textarea id="diagnostico" name="diagnostico" placeholder="OBS" class="form-control input-md" required="" ></textarea>
+                                        <textarea id="observacao" v-model="mf.forms.orcamentos.observacao" name="observacao"  class="form-control input-md" required="" ></textarea>
                                     </div>
                                 </div>
 					</div>

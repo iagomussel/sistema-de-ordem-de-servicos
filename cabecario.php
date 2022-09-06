@@ -1,4 +1,6 @@
-
+<?php
+require("restrict.php");
+?>
 <div class="header" id="cabecario_padrao">
 	<div><h3>AUTO ELETRICA E REFRIGERAÇÃO BOA AMIZADE LTDA.</h3></div>
 	<div class="row">

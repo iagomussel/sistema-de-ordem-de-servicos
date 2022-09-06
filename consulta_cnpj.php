@@ -1,16 +1,11 @@
 <?php
-if(!defined("RULE_CLASS")){
-	require("bootstrap.php");
-}
+include("conectar.class.php");
+
 $url = "https://www.receitaws.com.br/v1/cnpj/".$_GET["cnpj"];
-if(!validar_cnpj($_GET["cnpj"])){
-		echo '{"status":"ERROR","message":"CNPJ invalido"}';
-	die();
-}
 $res = curl_init();
 if(!$res)
 {
-	echo '{"status":"ERROR","message":"Erro interno no CURL"}';
+	echo '{"ERROR":"Não encontrado"}';
 	die();
 }
 curl_setopt($res,CURLOPT_URL,$url);

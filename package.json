@@ -1,4 +1,7 @@
 {
   "name": "InfoStar",
-  "main": "index.html"
+  "main": "index.html",
+  "dependencies": {
+    "vue-select": "github:sagalbot/vue-select"
+  }
 }
